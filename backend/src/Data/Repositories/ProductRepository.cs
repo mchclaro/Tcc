@@ -54,7 +54,6 @@ namespace Data.Repositories
         public async Task<IList<Product>> ReadAll()
         {
             return await _context.Products
-                .Include(x => x.Business)
                 .ToListAsync();
         }
 
