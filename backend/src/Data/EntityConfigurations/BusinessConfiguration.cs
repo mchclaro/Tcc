@@ -38,6 +38,10 @@ namespace Data.EntityConfigurations
             builder.Property(e => e.Category)
                 .IsRequired()
                 .HasConversion<int>();
+            
+            builder.Property(e => e.MainImage)
+                .IsRequired(false)
+                .HasColumnType("nvarchar(max)");
 
             builder.HasOne(e => e.Address)
                 .WithMany(x => x.Business)

@@ -22,12 +22,15 @@ namespace Application.Aggregates.Business.Commands
             private readonly IBusinessRepository _businessRepository;
             private readonly IConfiguration _configuration;
             private readonly IMapper _mapper;
+            private readonly IFileStorageService _fileStorage;
 
             public Handler(IBusinessRepository businessRepository,
+                           IFileStorageService fileStorage,
                            IConfiguration configuration,
                            IMapper mapper)
             {
                 _businessRepository = businessRepository;
+                _fileStorage = fileStorage;
                 _configuration = configuration;
                 _mapper = mapper;
             }
@@ -39,6 +42,13 @@ namespace Application.Aggregates.Business.Commands
                 {
                     result.AddError(Code.BadRequest, "Comércio não encontrado.");
                     return result.GetResult();
+                }
+                
+                var business = await _businessRepository.Read(request.Id);
+                
+                if(business.MainImage != null)
+                {
+                    await _fileStorage.DeleteFileFromUrl(business.MainImage);
                 }
 
                 await _businessRepository.Delete(request.Id);

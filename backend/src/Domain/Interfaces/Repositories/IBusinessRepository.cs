@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Filters;
 
 namespace Domain.Interfaces.Repositories
 {
@@ -14,5 +15,7 @@ namespace Domain.Interfaces.Repositories
         Task Update(Business business);
         Task<bool> Exists(int id);
         Task Delete(int id);
+        Task<bool> IsCnpjInUse(string cnpj);
+        Task<Business> Read(BusinessFilter filter);
     }
 }

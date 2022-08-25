@@ -16,6 +16,7 @@ namespace Domain.Entities
         public Priority Priority { get; set; }
         public Category Category { get; set; }
         public int? AddressId { get; set; }
+        public string MainImage { get; set; }
         public virtual Address Address { get; set; }
         public virtual ICollection<BusinessPhotos> BusinessPhotos { get; set; }
         public virtual ICollection<OpeningHours> OpeningHours { get; set; }

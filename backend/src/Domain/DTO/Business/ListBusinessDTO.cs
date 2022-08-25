@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace Domain.DTO.Business
 {
@@ -17,6 +18,7 @@ namespace Domain.DTO.Business
         public Priority Priority { get; set; }
         public Category Category { get; set; }
         public AddressDto Address { get; set; }
+        public string MainImage { get; set; }
         public virtual ICollection<BusinessPhotos> BusinessPhotos { get; set; }
         public virtual ICollection<OpeningHours> OpeningHours { get; set; }
         public virtual ICollection<Domain.Entities.Product> Products { get; set; }

@@ -2,6 +2,7 @@ using Domain.Entities;
 using Data.Context;
 using Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Domain.Filters;
 
 namespace Data.Repositories
 {
@@ -20,16 +21,22 @@ namespace Data.Repositories
 
             return business.Id;
         }
+        
+        public async Task<bool> IsCnpjInUse(string cnpj)
+        {
+            var res = await _context.Business.AnyAsync(c => c.CNPJ == cnpj);
+            return res;
+        }
 
         public async Task Delete(int id)
         {
-            var business = _context.Address.OrderBy(e => e.Id)
-                                            .Include(e => e.Business).First();
+            var business = _context.Business.OrderBy(e => e.Id)
+                                            .Include(e => e.Address).FirstOrDefault(x => x.Id == id);
 
             if (business == null)
                 return;
 
-            _context.Address.Remove(business);
+            _context.Business.Remove(business);
 
             await _context.SaveChangesAsync();
         }
@@ -45,6 +52,7 @@ namespace Data.Repositories
 
             var res = await _context.Business
                 .Include(x => x.Address)
+                .Include(x => x.BusinessPhotos)
                 .Select(x => new Business
                 {
                     Id = x.Id,
@@ -54,6 +62,7 @@ namespace Data.Repositories
                     BusinessName = x.BusinessName,
                     Priority = x.Priority,
                     Category = x.Category,
+                    MainImage = x.MainImage,
                     Address = new Address
                     {
                         Street = x.Address.Street,
@@ -73,6 +82,7 @@ namespace Data.Repositories
         {
              return await _context.Business
                 .Include(a => a.Address)
+                .Include(x => x.BusinessPhotos)
                 .ToListAsync();
         }
 
@@ -87,6 +97,7 @@ namespace Data.Repositories
                 res.FantasyName = business.FantasyName;
                 res.BusinessName = business.BusinessName;
                 res.Category = business.Category;
+                res.MainImage = business.MainImage;
             }
 
             var address = await _context.Address.FirstOrDefaultAsync(c => c.Id == business.Id);
@@ -104,5 +115,18 @@ namespace Data.Repositories
             await _context.SaveChangesAsync();
         }
         
-    }
+        public async Task<Business> Read(BusinessFilter filter)
+        {
+            IQueryable<Business> result = _context.Business
+                .Include(a => a.Address)
+                .Include(x => x.BusinessPhotos);
+
+            if (filter.Id.HasValue)
+            {
+                return await result.SingleOrDefaultAsync(x => x.Id == filter.Id);
+            }
+
+            return null;
+        }
+    }   
 }

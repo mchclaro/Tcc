@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2BQk3tEsqyOMBtP2ad65QWUEwFEYANtHEK/pVf3mtDaL7ic60thJsQVJl5n4iVgqD4+ZNwNfbwWFWUFL2mNpGw==",
+  "dgSpecHash": "L4dLxY61ZcmYkliEJodt9SR7N7N2tY6ImPkG6GVWpYmdv8MUOpsf7VHONyNcZf4bpLMFv5K2T2sTfmQguKpc5A==",
   "success": true,
   "projectFilePath": "C:\\projetos\\Tcc\\backend\\src\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,7 @@
     "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.1\\microsoft.extensions.configuration.6.0.1.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.configuration.binder\\6.0.0\\microsoft.extensions.configuration.binder.6.0.0.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\microsoft.extensions.logging\\6.0.0\\microsoft.extensions.logging.6.0.0.nupkg.sha512",
