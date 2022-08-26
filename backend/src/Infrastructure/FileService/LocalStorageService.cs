@@ -25,7 +25,7 @@ namespace Infrastructure.FileService
 
         public async Task DeleteFileFromUrl(string url)
         {
-            await Task.Run(() => System.IO.File.Delete($"{_hostEnvironment.WebRootPath}/{url}"));
+            await Task.Run(() => System.IO.File.Delete($"{_hostEnvironment.WebRootPath}{url}"));
         }
 
         public string GetFileUrl(string bucket, string objectName)

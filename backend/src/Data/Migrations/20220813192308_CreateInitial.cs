@@ -141,8 +141,7 @@ namespace Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Business_AddressId",
                 table: "Business",
-                column: "AddressId",
-                unique: true);
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BusinessPhotos_BusinessId",

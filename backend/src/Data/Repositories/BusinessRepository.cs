@@ -30,16 +30,18 @@ namespace Data.Repositories
 
         public async Task Delete(int id)
         {
-            var business = _context.Business.OrderBy(e => e.Id)
-                                            .Include(e => e.Address).FirstOrDefault(x => x.Id == id);
-
+            var business = await _context
+                    .Business
+                    .Include(x => x.Address)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+            
             if (business == null)
                 return;
-
-            _context.Business.Remove(business);
+            _context.Business.RemoveRange(business);
 
             await _context.SaveChangesAsync();
         }
+
 
         public async Task<bool> Exists(int id)
         {
@@ -65,6 +67,7 @@ namespace Data.Repositories
                     MainImage = x.MainImage,
                     Address = new Address
                     {
+                        Id = x.Address.Id,
                         Street = x.Address.Street,
                         StreetNumber = x.Address.StreetNumber,
                         ZipCode = x.Address.ZipCode,

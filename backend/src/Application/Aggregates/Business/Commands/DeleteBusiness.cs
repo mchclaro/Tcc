@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Result;
@@ -50,8 +51,9 @@ namespace Application.Aggregates.Business.Commands
                 {
                     await _fileStorage.DeleteFileFromUrl(business.MainImage);
                 }
-
+                
                 await _businessRepository.Delete(request.Id);
+                
                 return result.GetResult();
             }
         }

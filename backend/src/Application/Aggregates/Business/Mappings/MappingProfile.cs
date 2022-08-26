@@ -36,6 +36,7 @@ namespace Application.Aggregates.Business.Mappings
                .ForMember(dest => dest.CNPJ, src => src.MapFrom(src => src.CNPJ))
                .ForMember(dest => dest.SocialReson, src => src.MapFrom(src => src.SocialReson))
                .ForMember(dest => dest.FantasyName, src => src.MapFrom(src => src.FantasyName))
+               .ForMember(dest => dest.BusinessName, src => src.MapFrom(src => src.BusinessName))
                .ForMember(dest => dest.Priority, src => src.MapFrom(src => src.Priority))
                .ForMember(dest => dest.Category, src => src.MapFrom(src => src.Category))
                .ForMember(dest => dest.Address, src => src.MapFrom(src => new AddressDto
