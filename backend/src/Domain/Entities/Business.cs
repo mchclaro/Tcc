@@ -17,6 +17,7 @@ namespace Domain.Entities
         public Category Category { get; set; }
         public int? AddressId { get; set; }
         public string MainImage { get; set; }
+        public bool IsActive { get; set; }
         public virtual Address Address { get; set; }
         public virtual ICollection<BusinessPhotos> BusinessPhotos { get; set; }
         public virtual ICollection<OpeningHours> OpeningHours { get; set; }

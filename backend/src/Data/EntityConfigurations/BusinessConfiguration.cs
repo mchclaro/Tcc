@@ -43,6 +43,11 @@ namespace Data.EntityConfigurations
                 .IsRequired(false)
                 .HasColumnType("nvarchar(max)");
 
+            builder.Property(e => e.IsActive)
+                .IsRequired()
+                .HasDefaultValue(true)
+                .HasColumnType("bit");
+
             builder.HasOne(e => e.Address)
                 .WithMany(x => x.Business)
                 .HasForeignKey(e => e.AddressId)

@@ -10,7 +10,10 @@ namespace Application.Aggregates.Business.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<CreateBusiness.Command, Domain.Entities.Business>(MemberList.Source);
+            CreateMap<CreateBusiness.Command, Domain.Entities.Business>(MemberList.Source)
+            .ForMember(dest => dest.IsActive, src => src.Ignore());
+
+
             CreateMap<UpdateBusiness.Command, Domain.Entities.Business>(MemberList.Source)
             .ForMember(dest => dest.Id, src => src.MapFrom(src => src.Id))
             .ForMember(dest => dest.CNPJ, src => src.MapFrom(src => src.CNPJ))

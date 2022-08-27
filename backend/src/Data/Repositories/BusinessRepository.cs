@@ -30,14 +30,14 @@ namespace Data.Repositories
 
         public async Task Delete(int id)
         {
-            var business = await _context
-                    .Business
-                    .Include(x => x.Address)
-                    .FirstOrDefaultAsync(x => x.Id == id);
-            
-            if (business == null)
-                return;
-            _context.Business.RemoveRange(business);
+            var res = await _context
+            .Business
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (res != null)
+            {
+                res.IsActive = false;
+            }
 
             await _context.SaveChangesAsync();
         }
@@ -65,6 +65,7 @@ namespace Data.Repositories
                     Priority = x.Priority,
                     Category = x.Category,
                     MainImage = x.MainImage,
+                    IsActive = x.IsActive,
                     Address = new Address
                     {
                         Id = x.Address.Id,
@@ -76,7 +77,8 @@ namespace Data.Repositories
                         City = x.Address.City,
                         State = x.Address.State
                     },
-                }).FirstOrDefaultAsync(x => x.Id == id);
+                }).Where(x =>x.IsActive == true)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return res;
         }
@@ -86,12 +88,13 @@ namespace Data.Repositories
              return await _context.Business
                 .Include(a => a.Address)
                 .Include(x => x.BusinessPhotos)
+                .Where(x => x.IsActive == true)
                 .ToListAsync();
         }
 
         public async Task Update(Business business)
         {
-            var res = await _context.Business.FirstOrDefaultAsync(c => c.Id == business.Id);
+            var res = await _context.Business.FindAsync(business.Id);
 
             if (res != null)
             {
@@ -103,7 +106,7 @@ namespace Data.Repositories
                 res.MainImage = business.MainImage;
             }
 
-            var address = await _context.Address.FirstOrDefaultAsync(c => c.Id == business.Id);
+            var address = await _context.Address.FindAsync(res.AddressId);
             if (address != null)
             {
                 address.Street = business.Address.Street;
