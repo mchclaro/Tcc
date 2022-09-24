@@ -16,12 +16,13 @@ namespace Domain.Entities
         public Priority Priority { get; set; }
         public Category Category { get; set; }
         public int? AddressId { get; set; }
+        public int? SocialMediaId { get; set; }
         public string MainImage { get; set; }
         public bool IsActive { get; set; }
         public virtual Address Address { get; set; }
+        public virtual SocialMedia SocialMedias { get; set; }
         public virtual ICollection<BusinessPhotos> BusinessPhotos { get; set; }
         public virtual ICollection<OpeningHours> OpeningHours { get; set; }
         public virtual ICollection<Product> Products { get; set; }
-        public virtual ICollection<SocialMedia> SocialMedias { get; set; }
     }
 }

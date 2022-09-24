@@ -52,6 +52,11 @@ namespace Data.EntityConfigurations
                 .WithMany(x => x.Business)
                 .HasForeignKey(e => e.AddressId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            builder.HasOne(e => e.SocialMedias)
+                .WithMany(x => x.Business)
+                .HasForeignKey(e => e.SocialMediaId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

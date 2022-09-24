@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "N5wss2Ac2bt7DCP7h8bD4nxgi00NPPjuAJMH1EbW84baqgPQnE3fnEF3AA/jFTzn9CXAzx7MJMnCgcyQh3A59Q==",
+  "dgSpecHash": "QWB/KbgZXEW4RWqIcWkdHACrQf8DCY8/8arHCy6S7rF26eDkEpJEoJBjgYUHJrg+tNErnpOCSwEjfkj+qdlcOw==",
   "success": true,
   "projectFilePath": "C:\\projetos\\Tcc\\backend\\src\\Api\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kikos\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
-    "C:\\Users\\kikos\\.nuget\\packages\\awssdk.core\\3.7.12.20\\awssdk.core.3.7.12.20.nupkg.sha512",
-    "C:\\Users\\kikos\\.nuget\\packages\\awssdk.s3\\3.7.9.38\\awssdk.s3.3.7.9.38.nupkg.sha512",
+    "C:\\Users\\kikos\\.nuget\\packages\\awssdk.core\\3.7.13.4\\awssdk.core.3.7.13.4.nupkg.sha512",
+    "C:\\Users\\kikos\\.nuget\\packages\\awssdk.s3\\3.7.9.53\\awssdk.s3.3.7.9.53.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\bitlyapi\\4.0.1\\bitlyapi.4.0.1.nupkg.sha512",
     "C:\\Users\\kikos\\.nuget\\packages\\closedxml\\0.96.0\\closedxml.0.96.0.nupkg.sha512",

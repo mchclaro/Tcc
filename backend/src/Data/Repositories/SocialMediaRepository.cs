@@ -17,10 +17,12 @@ namespace Data.Repositories
             _context = context;
         }
 
-        public async Task Create(SocialMedia socialMedia)
+        public async Task<int> Create(SocialMedia socialMedia)
         {
             await _context.SocialMedias.AddAsync(socialMedia);
             await _context.SaveChangesAsync();
+
+            return socialMedia.Id;
         }
 
         public async Task Delete(int id)
@@ -46,7 +48,6 @@ namespace Data.Repositories
             res.Whatsapp = socialMedia.Whatsapp;
             res.Facebook = socialMedia.Facebook;
             res.Instagram = socialMedia.Instagram;
-            res.BusinessId = socialMedia.BusinessId;
 
             await _context.SaveChangesAsync();
         }

@@ -32,17 +32,21 @@ namespace Application.Aggregates.Business.Commands
             public string AddressComplement { get; set; }
             public string AddressCity { get; set; }
             public IFormFile MainImage { get; set; }
+            public string Phone { get; set; }
+            public string Whatsapp { get; set; }
+            public string Instagram { get; set; }
+            public string Facebook { get; set; }
         }
         public class Handler : IRequestHandler<Command, StandardResult<object>>
         {
             private readonly IBusinessRepository _businessRepository;
             private readonly IConfiguration _configuration;
-            private readonly IFileStorageService _fileStorage;
+            private readonly IFileStorageServiceS3 _fileStorage;
             private readonly IMapper _mapper;
-            private readonly string _imageBucket;
+            private readonly string bucket;
 
             public Handler(IBusinessRepository businessRepository,
-                           IFileStorageService fileStorage,
+                           IFileStorageServiceS3 fileStorage,
                            IConfiguration configuration,
                            IMapper mapper)
             {
@@ -50,7 +54,7 @@ namespace Application.Aggregates.Business.Commands
                 _businessRepository = businessRepository;
                 _configuration = configuration;
                 _mapper = mapper;
-                _imageBucket = "adp-images";
+                bucket = "havetrade";
             }
             public async Task<StandardResult<object>> Handle(Command request, CancellationToken cancellationToken)
             {
@@ -84,22 +88,36 @@ namespace Application.Aggregates.Business.Commands
 
                     var entity = _mapper.Map<Command, Domain.Entities.Business>(request);
 
-                    //faz o upload da foto principal do comércio
+                    //upload de foto com s3
                     if (request.MainImage != null)
                     {
                         string photoUuid = Guid.NewGuid().ToString("N");
                         string objectName = $"business_photo_{photoUuid}{Path.GetExtension(request.MainImage.FileName)}";
-                        await _fileStorage.UploadFileFromHttpIFormFile(request.MainImage, _imageBucket, objectName);
-                        mainImage = _fileStorage.GetFileUrl(_imageBucket, objectName);
+                        await _fileStorage.UploadFileFromHttpIFormFile(bucket, objectName, request.MainImage);
+                        mainImage = _fileStorage.GetFileUrlS3(objectName);
 
                         if (!string.IsNullOrEmpty(entity.MainImage) && entity.MainImage != mainImage)
                         {
-                            await _fileStorage.DeleteFileFromUrl(entity.MainImage);
+                            await _fileStorage.DeleteFileFromUrlS3(entity.MainImage);
                         }
                     }
 
                     if (!string.IsNullOrEmpty(mainImage))
                         entity.MainImage = mainImage;
+
+                    //faz o upload da foto principal do comércio
+                    // if (request.MainImage != null)
+                    // {
+                    //     string photoUuid = Guid.NewGuid().ToString("N");
+                    //     string objectName = $"business_photo_{photoUuid}{Path.GetExtension(request.MainImage.FileName)}";
+                    //     await _fileStorage.UploadFileFromHttpIFormFile(request.MainImage, _imageBucket, objectName);
+                    //     mainImage = _fileStorage.GetFileUrl(_imageBucket, objectName);
+
+                    //     if (!string.IsNullOrEmpty(entity.MainImage) && entity.MainImage != mainImage)
+                    //     {
+                    //         await _fileStorage.DeleteFileFromUrl(entity.MainImage);
+                    //     }
+                    // }
 
                     await _businessRepository.Update(entity);
 

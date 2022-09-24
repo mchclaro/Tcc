@@ -17,12 +17,11 @@ namespace Domain.DTO.Business
         public string BusinessName { get; set; }
         public Priority Priority { get; set; }
         public Category Category { get; set; }
-        public AddressDto Address { get; set; }
         public string MainImage { get; set; }
+        public AddressDto Address { get; set; }
+        public SocialMediaDto SocialMedias { get; set; }
         public virtual ICollection<BusinessPhotos> BusinessPhotos { get; set; }
         public virtual ICollection<OpeningHours> OpeningHours { get; set; }
-        public virtual ICollection<Domain.Entities.Product> Products { get; set; }
-        public virtual ICollection<SocialMedia> SocialMedias { get; set; }
     }
 
     public class AddressDto
@@ -34,5 +33,13 @@ namespace Domain.DTO.Business
         public string StreetNumber { get; set; }
         public string Complement { get; set; }
         public string ZipCode { get; set; }
+    }
+
+    public class SocialMediaDto
+    {
+        public string Phone { get; set; }
+        public string Whatsapp { get; set; }
+        public string Instagram { get; set; }
+        public string Facebook { get; set; }
     }
 }

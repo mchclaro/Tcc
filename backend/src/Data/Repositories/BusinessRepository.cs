@@ -21,7 +21,7 @@ namespace Data.Repositories
 
             return business.Id;
         }
-        
+
         public async Task<bool> IsCnpjInUse(string cnpj)
         {
             var res = await _context.Business.AnyAsync(c => c.CNPJ == cnpj);
@@ -37,6 +37,7 @@ namespace Data.Repositories
             if (res != null)
             {
                 res.IsActive = false;
+                res.MainImage = "";
             }
 
             await _context.SaveChangesAsync();
@@ -54,7 +55,9 @@ namespace Data.Repositories
 
             var res = await _context.Business
                 .Include(x => x.Address)
+                .Include(x => x.SocialMedias)
                 .Include(x => x.BusinessPhotos)
+                .Include(x => x.Products)
                 .Select(x => new Business
                 {
                     Id = x.Id,
@@ -77,7 +80,15 @@ namespace Data.Repositories
                         City = x.Address.City,
                         State = x.Address.State
                     },
-                }).Where(x =>x.IsActive == true)
+                    SocialMedias = new SocialMedia
+                    {
+                        Id = x.SocialMedias.Id,
+                        Phone = x.SocialMedias.Phone,
+                        Whatsapp = x.SocialMedias.Whatsapp,
+                        Facebook = x.SocialMedias.Facebook,
+                        Instagram = x.SocialMedias.Instagram
+                    },
+                }).Where(x => x.IsActive == true)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return res;
@@ -85,17 +96,16 @@ namespace Data.Repositories
 
         public async Task<IList<Business>> ReadAll()
         {
-             return await _context.Business
-                .Include(a => a.Address)
-                .Include(x => x.BusinessPhotos)
-                .Where(x => x.IsActive == true)
-                .ToListAsync();
+            return await _context.Business
+               .Include(a => a.Address)
+               .Include(x => x.SocialMedias)
+               .Where(x => x.IsActive == true)
+               .ToListAsync();
         }
 
         public async Task Update(Business business)
         {
             var res = await _context.Business.FindAsync(business.Id);
-
             if (res != null)
             {
                 res.CNPJ = business.CNPJ;
@@ -118,13 +128,27 @@ namespace Data.Repositories
                 address.State = business.Address.State;
             }
 
+            var socialMedias = await _context.SocialMedias.FindAsync(res.SocialMediaId);
+
+            var facebook = "www.facebook.com/";
+            var instagram = "www.instagram.com/";
+
+            if (socialMedias != null)
+            {
+                socialMedias.Phone = business.SocialMedias.Phone;
+                socialMedias.Whatsapp = business.SocialMedias.Whatsapp;
+                socialMedias.Facebook = facebook + business.SocialMedias.Facebook;
+                socialMedias.Instagram = instagram + business.SocialMedias.Instagram;
+            }
+
             await _context.SaveChangesAsync();
         }
-        
+
         public async Task<Business> Read(BusinessFilter filter)
         {
             IQueryable<Business> result = _context.Business
                 .Include(a => a.Address)
+                .Include(x => x.SocialMedias)
                 .Include(x => x.BusinessPhotos);
 
             if (filter.Id.HasValue)
@@ -134,5 +158,5 @@ namespace Data.Repositories
 
             return null;
         }
-    }   
+    }
 }

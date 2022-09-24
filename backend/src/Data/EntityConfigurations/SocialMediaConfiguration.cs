@@ -26,11 +26,6 @@ namespace Data.EntityConfigurations
             builder.Property(e => e.Facebook)
                 .IsRequired(false)
                 .HasMaxLength(255);
-            
-            builder.HasOne(e => e.Business)
-                .WithMany(x => x.SocialMedias)
-                .HasForeignKey(e => e.BusinessId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

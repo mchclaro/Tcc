@@ -26,7 +26,22 @@ namespace Data.Migrations
                 {
                     table.PrimaryKey("PK_Address", x => x.Id);
                 });
-
+            migrationBuilder.CreateTable(
+                name: "SocialMedia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Whatsapp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Instagram = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Facebook = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialMedia", x => x.Id);
+                });
+                
             migrationBuilder.CreateTable(
                 name: "Business",
                 columns: table => new
@@ -39,7 +54,8 @@ namespace Data.Migrations
                     BusinessName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Priority = table.Column<int>(type: "int", nullable: false),
                     Category = table.Column<int>(type: "int", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false)
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    SocialMediaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,6 +64,12 @@ namespace Data.Migrations
                         name: "FK_Business_Address_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Business_SocialMedia_SocialMediaId",
+                        column: x => x.SocialMediaId,
+                        principalTable: "SocialMedia",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,29 +137,6 @@ namespace Data.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "SocialMedia",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Whatsapp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Instagram = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Facebook = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BusinessId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SocialMedia", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SocialMedia_Business_BusinessId",
-                        column: x => x.BusinessId,
-                        principalTable: "Business",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Business_AddressId",
                 table: "Business",
@@ -159,9 +158,9 @@ namespace Data.Migrations
                 column: "BusinessId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SocialMedia_BusinessId",
-                table: "SocialMedia",
-                column: "BusinessId");
+                name: "IX_Business_SocialMediaId",
+                table: "Business",
+                column: "SocialMediaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

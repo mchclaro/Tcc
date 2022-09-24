@@ -11,7 +11,8 @@ namespace Application.Aggregates.Business.Mappings
         public MappingProfile()
         {
             CreateMap<CreateBusiness.Command, Domain.Entities.Business>(MemberList.Source)
-            .ForMember(dest => dest.IsActive, src => src.Ignore());
+            .ForMember(dest => dest.IsActive, src => src.Ignore())
+            .ForMember(dest => dest.OpeningHours, src => src.Ignore());
 
 
             CreateMap<UpdateBusiness.Command, Domain.Entities.Business>(MemberList.Source)
@@ -31,6 +32,13 @@ namespace Application.Aggregates.Business.Mappings
                 State = src.AddressState,
                 Complement = src.AddressComplement,
                 ZipCode = ValidationHelper.RemoveDirtCharsForCep(src.Zipcode)
+            }))
+            .ForMember(dest => dest.SocialMedias, src => src.MapFrom(src => new SocialMedia
+            {
+                Phone = src.Phone,
+                Whatsapp= src.Whatsapp,
+                Instagram = src.Instagram,
+                Facebook = src.Facebook,
             }));
 
             CreateMap<DeleteBusiness.Command, Domain.Entities.Business>(MemberList.Source);
@@ -51,6 +59,13 @@ namespace Application.Aggregates.Business.Mappings
                    City = src.Address.City,
                    State = src.Address.State,
                    ZipCode = src.Address.ZipCode
+               }))
+               .ForMember(dest => dest.SocialMedias, src => src.MapFrom(src => new SocialMediaDto
+               {
+                   Phone = src.SocialMedias.Phone,
+                   Whatsapp = src.SocialMedias.Whatsapp,
+                   Instagram = src.SocialMedias.Instagram,
+                   Facebook = src.SocialMedias.Facebook
                }));
         }
     }

@@ -27,32 +27,44 @@ namespace Application.Aggregates.Business.Commands
             public string AddressComplement { get; set; }
             public string AddressCity { get; set; }
             public IFormFile MainImage { get; set; }
+            public string Phone { get; set; }
+            public string Whatsapp { get; set; }
+            public string Instagram { get; set; }
+            public string Facebook { get; set; }
+            public string OpeningHours { get; set; }
         }
         public class Handler : IRequestHandler<Command, StandardResult<object>>
         {
             private readonly IBusinessRepository _businessRepository;
             private readonly IAddressRepository _addressRepository;
+            private readonly ISocialMediaRepository _socialMediaRepository;
+            private readonly IOpeningHoursRepository _openingHoursRepository;
             private readonly IConfiguration _configuration;
             private readonly IMapper _mapper;
-            private readonly IFileStorageService _fileStorage;
-            private readonly string _imageBucket;
+            private readonly IFileStorageServiceS3 _fileStorage;
+            private readonly string bucket;
 
             public Handler(IBusinessRepository businessRepository,
                            IAddressRepository addressRepository,
+                           ISocialMediaRepository socialMediaRepository,
+                           IOpeningHoursRepository openingHoursRepository,
                            IConfiguration configuration,
-                           IFileStorageService fileStorage,
+                           IFileStorageServiceS3 fileStorage,
                            IMapper mapper)
             {
                 _fileStorage = fileStorage;
                 _businessRepository = businessRepository;
                 _addressRepository = addressRepository;
+                _socialMediaRepository = socialMediaRepository;
+                _openingHoursRepository = openingHoursRepository;
                 _configuration = configuration;
                 _mapper = mapper;
-                _imageBucket = "adp-images";
+                bucket = "havetrade";
             }
             public async Task<StandardResult<object>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var result = new StandardResult<object> { };
+                string mainImage = "";
 
                 try
                 {
@@ -93,22 +105,31 @@ namespace Application.Aggregates.Business.Commands
                         return result.GetResult();
                     }
 
-                    (bool fileSizeExceeded, string mainImage) = await updateBusinessMainImage(request);
-
-                    if (fileSizeExceeded)
+                    var entity = _mapper.Map<Command, Domain.Entities.Business>(request);
+                   
+                    //upload de foto com s3
+                    if (request.MainImage != null)
                     {
-                        result.AddError(Code.BadRequest, mainImage);
-                        return result.GetResult();
+                        string photoUuid = Guid.NewGuid().ToString("N");
+                        string objectName = $"business_photo_{photoUuid}{Path.GetExtension(request.MainImage.FileName)}";
+                        await _fileStorage.UploadFileFromHttpIFormFile(bucket, objectName, request.MainImage);
+                        mainImage = _fileStorage.GetFileUrlS3(objectName);
+
+                        if (!string.IsNullOrEmpty(entity.MainImage) && entity.MainImage != mainImage)
+                        {
+                            await _fileStorage.DeleteFileFromUrlS3(entity.MainImage);
+                        }
                     }
 
-                    var entity = _mapper.Map<Command, Domain.Entities.Business>(request);
-
                     if (!string.IsNullOrEmpty(mainImage))
-                    entity.MainImage = mainImage;
+                        entity.MainImage = mainImage;
 
                     entity.AddressId = await saveAddress(request);
-                    
-                    await _businessRepository.Create(entity);
+                    entity.SocialMediaId = await saveSocialMedia(request);
+
+                    var businessId = await _businessRepository.Create(entity);
+
+                    await generateOpeningHours(request, businessId);
 
                 }
                 catch (Exception)
@@ -135,33 +156,60 @@ namespace Application.Aggregates.Business.Commands
                 return await _addressRepository.Create(address);
             }
 
-            private async Task<(bool, string)> updateBusinessMainImage(Command request)
+            public async Task<int> saveSocialMedia(Command request)
             {
-                string mainImage = string.Empty;
-                bool fileSizeExceeded = false;
+                var facebook = "www.facebook.com/";
+                var instagram = "www.instagram.com/";
 
-                if (request.MainImage is null)
-                    return (fileSizeExceeded, mainImage);
-
-                if (!FileSizeValidationHelper.IsFileSizeAllowed(_configuration, request.MainImage.Length))
+                var socialMedia = new SocialMedia
                 {
-                    fileSizeExceeded = true;
-                    mainImage = "O tamanho da foto excede o limite permitido. Selecione uma foto que possua no máximo 8MB de tamanho.";
+                    Phone = request.Phone,
+                    Whatsapp = request.Whatsapp,
+                    Instagram = instagram + request.Instagram,
+                    Facebook = facebook + request.Facebook
+                };
 
-                    return (fileSizeExceeded, mainImage);
-                }
-
-                string mainImageUuid = Guid.NewGuid().ToString("N");
-
-                string objectName = $"business_photo_{mainImageUuid}{Path.GetExtension(request.MainImage.FileName)}";
-
-                await _fileStorage.UploadFileFromHttpIFormFile(request.MainImage, _imageBucket, objectName);
-
-                mainImage = _fileStorage.GetFileUrl(_imageBucket, objectName);
-
-                return (fileSizeExceeded, mainImage);
+                return await _socialMediaRepository.Create(socialMedia);
+                
             }
 
+            public async Task generateOpeningHours(Command request, int businessId)
+            {
+                var openingHoursList = OpeningHoursHelper.ParseManyTimeTables(request.OpeningHours);
+                foreach (var openingHours in openingHoursList)
+                {
+                    openingHours.BusinessId = businessId;
+
+                    await _openingHoursRepository.Create(openingHours);
+                }
+            }
+
+            // private async Task<(bool, string)> updateBusinessMainImage(Command request)
+            // {
+            //     string mainImage = string.Empty;
+            //     bool fileSizeExceeded = false;
+
+            //     if (request.MainImage is null)
+            //         return (fileSizeExceeded, mainImage);
+
+            //     if (!FileSizeValidationHelper.IsFileSizeAllowed(_configuration, request.MainImage.Length))
+            //     {
+            //         fileSizeExceeded = true;
+            //         mainImage = "O tamanho da foto excede o limite permitido. Selecione uma foto que possua no máximo 8MB de tamanho.";
+
+            //         return (fileSizeExceeded, mainImage);
+            //     }
+
+            //     string mainImageUuid = Guid.NewGuid().ToString("N");
+
+            //     string objectName = $"business_photo_{mainImageUuid}{Path.GetExtension(request.MainImage.FileName)}";
+
+            //     await _fileStorage.UploadFileFromHttpIFormFile(request.MainImage, _imageBucket, objectName);
+
+            //     mainImage = _fileStorage.GetFileUrl(_imageBucket, objectName);
+
+            //     return (fileSizeExceeded, mainImage);
+            // }
         }
     }
 }

@@ -34,6 +34,8 @@ builder.Services.AddScoped<ISocialMediaRepository, SocialMediaRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 builder.Services.AddTransient<IFileStorageService, LocalStorageService>();
+builder.Services.AddTransient<IFileStorageServiceS3, CloudStorageService>();
+
 
 // builder.Services.AddScoped<IMediator, Mediator>();
 builder.Services.AddScoped<Mediator>();

@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Result;
 using AutoMapper;
 using Domain.Interfaces.Repositories;
@@ -23,10 +18,10 @@ namespace Application.Aggregates.Business.Commands
             private readonly IBusinessRepository _businessRepository;
             private readonly IConfiguration _configuration;
             private readonly IMapper _mapper;
-            private readonly IFileStorageService _fileStorage;
+            private readonly IFileStorageServiceS3 _fileStorage;
 
             public Handler(IBusinessRepository businessRepository,
-                           IFileStorageService fileStorage,
+                           IFileStorageServiceS3 fileStorage,
                            IConfiguration configuration,
                            IMapper mapper)
             {
@@ -49,7 +44,7 @@ namespace Application.Aggregates.Business.Commands
                 
                 if(business.MainImage != null)
                 {
-                    await _fileStorage.DeleteFileFromUrl(business.MainImage);
+                    await _fileStorage.DeleteFileFromUrlS3(business.MainImage);
                 }
                 
                 await _businessRepository.Delete(request.Id);

@@ -8,7 +8,7 @@ namespace Domain.Interfaces.Repositories
 {
     public interface ISocialMediaRepository
     {
-        Task Create(SocialMedia socialMedia);
+        Task<int> Create(SocialMedia socialMedia);
         Task Update(SocialMedia socialMedia);
         Task Delete(int id);
     }

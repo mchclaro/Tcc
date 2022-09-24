@@ -12,7 +12,6 @@ namespace Domain.Entities
         public string Whatsapp { get; set; }
         public string Instagram { get; set; }
         public string Facebook { get; set; }
-        public int BusinessId { get; set; }
-        public virtual Business Business { get; set; }
+        public virtual ICollection<Business> Business { get; set; }
     }
 }
