@@ -17,8 +17,8 @@ namespace Infrastructure.FileService
 
         public CloudStorageService()
         {
-            AwsKeyID = AwsKeyID;
-            AwsKeySecret = AwsKeySecret;
+            AwsKeyID = "AKIASNWPNGUNYTULMQUT";
+            AwsKeySecret = "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";
             AWSCredentials = new BasicAWSCredentials(AwsKeyID, AwsKeySecret);
             var config = new AmazonS3Config
             {
