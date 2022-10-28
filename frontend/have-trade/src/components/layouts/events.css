@@ -24,7 +24,7 @@
 
 .card .card_image img {
   width: inherit;
-  height: 271px;
+  height: 275px;
   object-fit: cover;
   border-radius: 2px 2px 2px 2px;
 }
@@ -34,7 +34,7 @@
   font-weight: bold;
   font-size: 30px;
   margin-top: -70px;
-  height: 40px;
+  height: 45px;
 }
 
 .card:hover {

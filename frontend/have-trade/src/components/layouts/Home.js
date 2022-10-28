@@ -7,6 +7,7 @@ import t from '../../assets/t.png'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Events from "./Events";
+import Category from "./Category";
 
 function Home() {
     return (
@@ -23,21 +24,22 @@ function Home() {
             <div className="carousel-wrapper">
                 <Carousel autoPlay>
                     <div>
-                        <img src={t} />
+                        <img src={t} alt="img"/>
                     </div>
                     <div>
-                        <img src={s} />
+                        <img src={s} alt="img"/>
                     </div>
                     <div>
-                        <img src={p} />
+                        <img src={p} alt="img"/>
                     </div>
                     <div>
-                        <img src={p} />
+                        <img src={p} alt="img"/>
                     </div>
                 </Carousel>
             </div>
 
             <Events />
+            <Category />
         </>
     );
 }

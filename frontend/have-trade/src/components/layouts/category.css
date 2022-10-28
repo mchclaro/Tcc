@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans:900');
+.cardmain {
+    width: 100%;
+    display: flex;
+    /* justify-content: space-around; esse dá o espaço entre eles */
+    flex-wrap: wrap;
+  }
+.cardcategory {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  cursor: pointer;
+  height: 220px;
+  margin: 50px auto;
+  padding: 0 20px;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0,0,0,0.025);
+  text-align: center;
+  transition: height 1000ms;
+  width: 260px;
+}
+@media (max-width: 767px) {
+  .cardcategory {
+    flex-direction: column;
+  }
+}
+.cardcategory.expanded {
+  height: 400px;
+}
+.icon {
+  margin-top: 30px;
+  transform: translateY(10px);
+  transition: transform 1000ms;
+}
+.cardcategory.expanded .icon {
+  transform: translateY(0);
+}
+.text {
+  clip-path: polygon(0% 100%, 0 -90%, 50% -5%, 100% -90%, 100% 100%);
+  -webkit-clip-path: polygon(0% 100%, 0 -90%, 50% -5%, 100% -90%, 100% 100%);
+  transition: clip-path 1000ms;
+}
+.cardcategory.expanded .text {
+  clip-path: polygon(0% 100%, 0 -100%, 50% -15%, 100% -100%, 100% 100%);
+  -webkit-clip-path: polygon(0% 100%, 0 -100%, 50% -15%, 100% -100%, 100% 100%);
+}
+.text_content {
+  transform: translateY(-160px);
+  transition: transform 1000ms;
+}
+.cardcategory.expanded .text_content {
+  transform: translateY(-15px);
+}
+.chevron {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 15px);
+  transform-origin: 50%;
+  transform: rotate(180deg);
+  transition: transform 1000ms;
+}
+.cardcategory.expanded .chevron {
+  transform: rotate(0deg);
+}
+.title {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 900;
+  margin: 20px 0 12px;
+}

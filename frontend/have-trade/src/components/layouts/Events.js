@@ -2,7 +2,7 @@ import e from '../../assets/e.jpg'
 import p from '../../assets/p.png'
 import "./events.css";
 
-function Home() {
+function Events() {
     return (
         <>
             <div className="cards_list">
@@ -48,4 +48,4 @@ function Home() {
         </>
     );
 }
-export default Home
+export default Events
