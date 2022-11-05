@@ -56,7 +56,7 @@ const Menu = () => {
                                 <li className="menu-item" >
                                     <Link to="/" className='is-active' onClick={toggleClass}>Home</Link>
                                 </li>
-                                <li className="menu-item"><Link to="/" onClick={toggleClass} className='is-active'>Comércios</Link></li>
+                                <li className="menu-item"><Link to="/business" onClick={toggleClass} className='is-active'>Comércios</Link></li>
                                 <li className="menu-item"><Link to="/" onClick={toggleClass} className='is-active'>Produtos</Link></li>
                                 <li onClick={toggleSubmenu} className="menu-item sub__menus__arrows" > <Link to="/"> Categorias <FiChevronDown /></Link>
                                     <ul className={boxClassSubMenu.join(' ')} >

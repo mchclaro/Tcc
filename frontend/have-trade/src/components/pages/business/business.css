@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans:900");
+.cardbusiness {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  height: 360px;
+  width: 50%;
+  margin: 50px auto;
+  padding: 0 20px;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.025);
+  text-align: left;
+  transition: height 1000ms;
+}
+@media (max-width: 720px) {
+  .cardbusiness {
+    width: 370px;
+    height: 560px;
+  }
+  .cardbusiness h3 {
+    display: none;
+  }
+  .location {
+    margin: -8px 0px 0px 0px;
+    display: flex;
+  }
+  .socialmedia a {
+    padding: 10px 17px;
+    justify-content: center;
+  }
+  .hours h5 {
+    margin: 30px 0px 0px 0px;
+  }
+  .hours li {
+    margin: 30px 0px 0px 0px;
+  }
+  .info {
+    display: none;
+  }
+}
+
+@media (max-width: 1420px) {
+  .cardbusiness {
+    width: 370px;
+    height: 560px;
+  }
+  .cardbusiness h3 {
+    display: none;
+  }
+  .location {
+    margin: -8px 0px 0px 0px;
+    display: flex;
+  }
+  .socialmedia a {
+    padding: 10px 17px;
+    justify-content: center;
+  }
+  .hours h5 {
+    margin: 30px 0px 0px 0px;
+  }
+  .hours li {
+    margin: 30px 0px 0px 0px;
+  }
+  .info {
+    display: none;
+  }
+}
+
+.cardbusiness h3 {
+  text-align: center;
+  margin: 0px 0px 0px 390px;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 18px;
+  color: #000;
+}
+
+.business_name h1 {
+  text-align: center;
+  font-family: "Alegreya Sans", sans-serif;
+  font-size: 22px;
+  color: #000;
+}
+
+.cardtext {
+  display: block;
+  position: relative;
+  margin: 10px auto;
+}
+
+.location {
+  position: relative;
+  padding: 0px 10px;
+}
+
+.socialmedia {
+  display: flex;
+  justify-content: left;
+}
+.socialmedia li {
+  margin: 0px 10px 0px 0px;
+}
+
+.socialmedia svg {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #000;
+}
+
+.socialmedia svg:hover {
+  color: #ff0000;
+}
+
+.hours {
+  float: right;
+  display: flex;
+  margin: -35px 80px 0px 0px;
+}
+.hours svg {
+  font-size: 1.5em;
+  display: flex;
+  cursor: pointer;
+  color: #000;
+  margin: 0px 0px 0px 5px;
+}
+
+.hours svg:hover {
+  color: #ff0000;
+}
+
+.hours h5 {
+  text-align: left;
+  font-family: "Alegreya Sans", sans-serif;
+  color: #000;
+}
+
+.business_carousel {
+  width: 330px;
+  height: 270px;
+  display: flex;
+  justify-content: left;
+  float: right;
+}
+
+.business_carousel img {
+  border-radius: 3px 3px 3px 3px;
+  object-fit: cover;
+}
+
+p {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0px 3px;
+}

@@ -160,10 +160,11 @@ namespace Application.Aggregates.Business.Commands
             {
                 var facebook = "www.facebook.com/";
                 var instagram = "www.instagram.com/";
+                var prefixo = "+55";
 
                 var socialMedia = new SocialMedia
                 {
-                    Phone = request.Phone,
+                    Phone = prefixo + request.Phone,
                     Whatsapp = request.Whatsapp,
                     Instagram = instagram + request.Instagram,
                     Facebook = facebook + request.Facebook

@@ -1,12 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import Footer from "./components/layouts/Footer";
 import Home from "./components/layouts/Home";
-import Menu from "./components/layouts/Menu";
+import Leaflet from "./components/layouts/Leaflet";
+import Business from "./components/pages/business/Business";
 
 function App() {
   return (
     <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/business' element={<Business />} />
+        <Route path='/leaflet' element={<Leaflet />} />
     </Routes>
   );
 }
