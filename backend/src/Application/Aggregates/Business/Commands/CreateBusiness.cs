@@ -26,6 +26,8 @@ namespace Application.Aggregates.Business.Commands
             public string AddressState { get; set; }
             public string AddressComplement { get; set; }
             public string AddressCity { get; set; }
+            public string Latitude { get; set; }
+            public string Longitude { get; set; }
             public IFormFile MainImage { get; set; }
             public string Phone { get; set; }
             public string Whatsapp { get; set; }
@@ -59,7 +61,7 @@ namespace Application.Aggregates.Business.Commands
                 _openingHoursRepository = openingHoursRepository;
                 _configuration = configuration;
                 _mapper = mapper;
-                bucket = "havetrade";
+                bucket = "havetrade-photos";
             }
             public async Task<StandardResult<object>> Handle(Command request, CancellationToken cancellationToken)
             {
@@ -150,7 +152,9 @@ namespace Application.Aggregates.Business.Commands
                     District = request.AddressDistrict,
                     ZipCode = ValidationHelper.RemoveDirtCharsForCep(request.Zipcode),
                     State = request.AddressState,
-                    City = request.AddressCity
+                    City = request.AddressCity,
+                    Latitude = request.Latitude,
+                    Longitude = request.Longitude
                 };
 
                 return await _addressRepository.Create(address);
@@ -158,14 +162,15 @@ namespace Application.Aggregates.Business.Commands
 
             public async Task<int> saveSocialMedia(Command request)
             {
-                var facebook = "www.facebook.com/";
-                var instagram = "www.instagram.com/";
+                var facebook = "https://www.facebook.com/";
+                var instagram = "https://www.instagram.com/";
                 var prefixo = "+55";
+                var wpp = "wa.me/+55";
 
                 var socialMedia = new SocialMedia
                 {
                     Phone = prefixo + request.Phone,
-                    Whatsapp = request.Whatsapp,
+                    Whatsapp = wpp + request.Whatsapp,
                     Instagram = instagram + request.Instagram,
                     Facebook = facebook + request.Facebook
                 };

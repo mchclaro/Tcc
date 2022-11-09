@@ -38,7 +38,7 @@ img {
   max-height: 100px;
 } */
 .is-active {
-  color: #ff0000 !important;
+  color: #FFFFFF !important;
 }
 
 .navBar .col-md-3 {
@@ -68,7 +68,7 @@ li {
   line-height: 40px;
   position: relative;
   display: block;
-  color: #d00000;
+  color: #FFFFFF;
   margin: 27px 17px;
   text-decoration: none;
   cursor: pointer;
@@ -97,14 +97,14 @@ li {
   border-left: 1px solid lavender;
 }
 .header__middle {
-  background-color: #000;
+  background-color: #025586;
   display: flex;
   width: 100%;
   float: left;
   position: relative;
 }
 .header__middle__logo > a > h1 {
-  color: #d00000;
+  color: #FFFFFF;
   text-transform: uppercase;
   text-decoration: none;
   margin-top: 33px;
@@ -117,7 +117,7 @@ li {
   right: 177px;
   bottom: 10px;
   font-size: 14px;
-  color: #d00000;
+  color: #025586;
 }
 .sub__menus__arrows {
   position: relative;
@@ -131,7 +131,7 @@ li {
 .sub__menus {
   position: absolute;
   display: none;
-  background: white;
+  background: rgb(52, 51, 51);
   border: 1px solid lavender;
   width: 227px;
   left: -17px;
@@ -142,7 +142,7 @@ li {
 
 @media (max-width: 767px) {
   .header__middle .active {
-    color: #d00000 !important;
+    color: #025586 !important;
   }
 }
 
@@ -161,11 +161,11 @@ li {
 }
 
 .menu-item:hover > a {
-  color: #fff !important;
+  color: #faf200 !important;
 }
 
 .menu-item .sub__menus li:hover a {
-  color: #000 !important;
+  color: #025586 !important;
 }
 
 .header__middle__logo img {
@@ -185,16 +185,16 @@ li {
     margin: 27px 0 0 0;
   }
   .main-nav .menubar__button:hover {
-    background-color: #ff0000;
+    background-color: #FFFFFF;
   }
   .main-nav .menu-item:hover > a {
-    color: #fff !important;
+    color: #faf200 !important;
   }
   .main-nav .menubar__button {
     display: block !important;
     float: right;
-    background-color: #ff0000;
-    color: #fff;
+    background-color: #faf200;
+    color: #161616;
     padding: 6px 7px;
     border-radius: 5px;
     margin: 27px auto 0;
@@ -210,8 +210,8 @@ li {
     position: absolute;
     left: 0;
     z-index: 10007;
-    background-color: #000;
-    border-bottom: 3px solid #ff0000;
+    background-color: #025586;
+    border-bottom: 3px solid #FFFFFF;
     right: 0;
     padding-bottom: 17px;
     padding-top: 57px;
@@ -219,7 +219,7 @@ li {
   .main-nav .menu-item a {
     margin: 10px 17px;
     text-align: center;
-    color: #ff0000;
+    color: #FFFFFF;
   }
   .main-nav ul.main-menu {
     display: none;

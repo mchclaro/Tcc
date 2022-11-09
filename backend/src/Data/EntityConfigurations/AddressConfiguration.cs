@@ -42,6 +42,14 @@ namespace Data.EntityConfigurations
             builder.Property(e => e.State)
                 .IsRequired(false)
                 .HasMaxLength(255);
+            
+            builder.Property(e => e.Latitude)
+                .IsRequired(false)
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property(e => e.Longitude)
+                .IsRequired(false)
+                .HasColumnType("nvarchar(max)");
         }
     }
 }

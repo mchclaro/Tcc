@@ -13,12 +13,12 @@ namespace Infrastructure.FileService
         public string AwsKeySecret { get; set; }
         public BasicAWSCredentials AWSCredentials { get; private set; }
         private readonly IAmazonS3 _awsS3Client;
-        private const string BucketName = "havetrade";
+        private const string BucketName = "havetrade-photos";
 
         public CloudStorageService()
         {
-            AwsKeyID = "AKIASNWPNGUNYTULMQUT";
-            AwsKeySecret = "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";
+            AwsKeyID = "AKIAXLC2NDNZSM7ZKL6S";
+            AwsKeySecret = "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";
             AWSCredentials = new BasicAWSCredentials(AwsKeyID, AwsKeySecret);
             var config = new AmazonS3Config
             {
@@ -51,7 +51,7 @@ namespace Infrastructure.FileService
             {
                 BucketName = BucketName,
                 Key = fileName,
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddDays(1),
             };
 
             return _awsS3Client.GetPreSignedURL(request);

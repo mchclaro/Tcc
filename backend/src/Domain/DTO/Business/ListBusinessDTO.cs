@@ -33,6 +33,8 @@ namespace Domain.DTO.Business
         public string StreetNumber { get; set; }
         public string Complement { get; set; }
         public string ZipCode { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
     }
 
     public class SocialMediaDto

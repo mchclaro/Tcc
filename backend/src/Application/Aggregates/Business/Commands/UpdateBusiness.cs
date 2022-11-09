@@ -31,6 +31,8 @@ namespace Application.Aggregates.Business.Commands
             public string AddressState { get; set; }
             public string AddressComplement { get; set; }
             public string AddressCity { get; set; }
+            public string Latitude { get; set; }
+            public string Longitude { get; set; }
             public IFormFile MainImage { get; set; }
             public string Phone { get; set; }
             public string Whatsapp { get; set; }
@@ -54,7 +56,7 @@ namespace Application.Aggregates.Business.Commands
                 _businessRepository = businessRepository;
                 _configuration = configuration;
                 _mapper = mapper;
-                bucket = "havetrade";
+                bucket = "havetrade-photos";
             }
             public async Task<StandardResult<object>> Handle(Command request, CancellationToken cancellationToken)
             {

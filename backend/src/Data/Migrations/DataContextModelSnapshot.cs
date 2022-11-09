@@ -73,9 +73,6 @@ namespace Data.Migrations
 
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
-                    
-                    b.Property<int?>("SocialMediaId")
-                        .HasColumnType("int");
 
                     b.Property<string>("BusinessName")
                         .HasMaxLength(255)
@@ -93,10 +90,18 @@ namespace Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("MainImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SocialMediaId")
                         .HasColumnType("int");
 
                     b.Property<string>("SocialReson")
@@ -196,7 +201,6 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-
                     b.Property<string>("Facebook")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -225,29 +229,14 @@ namespace Data.Migrations
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("Domain.Entities.SocialMedia", "SocialMedias")
+                        .WithMany("Business")
+                        .HasForeignKey("SocialMediaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.Navigation("Address");
-                });
-            
-            modelBuilder.Entity("Domain.Entities.Business", b =>
-                {
-                    b.HasOne("Domain.Entities.SocialMedia", "SocialMedia")
-                        .WithMany("Business")
-                        .HasForeignKey("Domain.Entities.Business", "SocialMediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
-                    b.Navigation("SocialMedia");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Business", b =>
-                {
-                    b.HasOne("Domain.Entities.SocialMedia", "SocialMedia")
-                        .WithMany("Business")
-                        .HasForeignKey("Domain.Entities.Business", "SocialMediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SocialMedia");
+                    b.Navigation("SocialMedias");
                 });
 
             modelBuilder.Entity("Domain.Entities.BusinessPhotos", b =>
@@ -295,7 +284,11 @@ namespace Data.Migrations
                     b.Navigation("OpeningHours");
 
                     b.Navigation("Products");
+                });
 
+            modelBuilder.Entity("Domain.Entities.SocialMedia", b =>
+                {
+                    b.Navigation("Business");
                 });
 #pragma warning restore 612, 618
         }

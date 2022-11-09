@@ -31,6 +31,8 @@ namespace Application.Aggregates.Business.Mappings
                 City = src.AddressCity,
                 State = src.AddressState,
                 Complement = src.AddressComplement,
+                Latitude = src.Latitude,
+                Longitude = src.Longitude,
                 ZipCode = ValidationHelper.RemoveDirtCharsForCep(src.Zipcode)
             }))
             .ForMember(dest => dest.SocialMedias, src => src.MapFrom(src => new SocialMedia
@@ -58,7 +60,9 @@ namespace Application.Aggregates.Business.Mappings
                    District = src.Address.District,
                    City = src.Address.City,
                    State = src.Address.State,
-                   ZipCode = src.Address.ZipCode
+                   ZipCode = src.Address.ZipCode,
+                   Latitude = src.Address.Latitude,
+                   Longitude = src.Address.Longitude
                }))
                .ForMember(dest => dest.SocialMedias, src => src.MapFrom(src => new SocialMediaDto
                {

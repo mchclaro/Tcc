@@ -78,7 +78,9 @@ namespace Data.Repositories
                         Complement = x.Address.Complement,
                         District = x.Address.District,
                         City = x.Address.City,
-                        State = x.Address.State
+                        State = x.Address.State,
+                        Latitude = x.Address.Latitude,
+                        Longitude = x.Address.Longitude
                     },
                     SocialMedias = new SocialMedia
                     {
@@ -126,6 +128,8 @@ namespace Data.Repositories
                 address.Complement = business.Address.Complement;
                 address.City = business.Address.City;
                 address.State = business.Address.State;
+                address.Latitude = business.Address.Latitude;
+                address.Longitude = business.Address.Longitude;
             }
 
             var socialMedias = await _context.SocialMedias.FindAsync(res.SocialMediaId);

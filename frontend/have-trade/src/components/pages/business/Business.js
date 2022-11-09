@@ -2,13 +2,13 @@ import Footer from '../../layouts/Footer';
 import Menu from '../../layouts/Menu';
 import Search from '../../layouts/Search';
 import './business.css'
-import a from '../../../assets/a.png'
-import fo from '../../../assets/fo.jpg'
-import React, { useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Carousel from 'react-bootstrap/Carousel';
 import { FaFacebook, FaInstagram, FaPhoneAlt, FaWhatsapp } from 'react-icons/fa';
 import { MdWatchLater } from 'react-icons/md';
-import Leaflet from '../../layouts/Leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import a from '../../../assets/a.png';
 
 export default function Business() {
     const [index, setIndex] = useState(0);
@@ -16,141 +16,84 @@ export default function Business() {
         setIndex(selectedIndex);
     };
 
+    const baseUrl = "https://localhost:5001/api/Business/";
+    const [data, setData] = useState([]);
+
+    const getBusiness = async () => {
+        await axios.get(`${baseUrl}read/all`).then(response => {
+            setData(response.data.data);
+        }).catch(error => {
+            console.log(error);
+        })
+    };
+
+    useEffect(() => {
+        getBusiness();
+        console.log(data)
+    }, [])
+
     return (
         <>
             <Menu />
             <Search />
-            <div className="cardbusiness">
-                <div className="business_name">
-                    <h1>Supermercado Iquegami</h1>
-                </div>
-                <h3>Galeria de Fotos</h3>
-                <Carousel className="business_carousel" activeIndex={index} onSelect={handleSelect}>
-                    <Carousel.Item>
-                        <img className="d-block w-100" src={a} alt="img" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img className="d-block w-100" src={fo} alt="img" />
-                    </Carousel.Item>
-                </Carousel>
-                <div className="location">
-                    <Leaflet />
-                </div>
-                <div className="cardtext">
-                    <div className="info">
-                        <p>
-                            R. Profa. Nair de Almeida, 988 - Centro <br /> Severínia - SP, 14735-000
-                        </p>
+            {data.map(b =>
+                <div className="cardbusiness" key={b.id}>
+                    <div className="business_name">
+                        <h1>{b.businessName}</h1>
                     </div>
-                    <ul className="socialmedia">
-                        <li>
-                            <a href=''><FaWhatsapp /></a>
-                        </li>
-                        <li>
-                            <a href=''> <FaInstagram /></a>
-                        </li>
-                        <li>
-                            <a href=''><FaFacebook /></a>
-                        </li>
-                        <li>
-                            <a href=''><FaPhoneAlt /></a>
-                        </li>
-                    </ul>
-                </div>
-                <div className="hours">
-                    <h5>Funcionamento:</h5>
-                    <li>
-                        <a href=''><MdWatchLater /></a>
-                    </li>
-                </div>
-                {/* <div className="cardhours">
-                    <h5>Funcionamento:</h5>
-                    <h6> SEG: <h7>08H às 18H</h7></h6>
-                    <h6> TER: <h7>08H às 18H</h7></h6>
-                    <h6> QUA: <h7>08H às 18H</h7></h6>
-                    <h6> QUI: <h7>08H às 18H</h7></h6>
-                    <h6> SEX: <h7>08H às 18H</h7></h6>
-                    <h6> SAB: <h7>09H às 15H</h7></h6>
-                    <h6> DOM: <h7>FECHADO</h7></h6>
-                </div> */}
-            </div>
-
-            {/* <div className="cardbusiness">
-                <div className="business_name">
-                    <h1>Supermercado Iquegami</h1>
-                </div>
-                <div className="location">
-                    
-                </div>
-                <Carousel className="business_carousel" activeIndex={index} onSelect={handleSelect}>
-                    <Carousel.Item>
-                        <img className="d-block w-100" src={a} alt="img" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img className="d-block w-100" src={p} alt="img" />
-                    </Carousel.Item>
-                </Carousel>
-                <div className="cardtext">
-                    <div className="info">
-                        <p>
-                            R. Profa. Nair de Almeida, 988 - Centro <br /> Severínia - SP, 14735-000
-                        </p>
+                    <h3>Galeria de Fotos</h3>
+                    <Carousel className="business_carousel" activeIndex={index} onSelect={handleSelect}>
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={b.mainImage} alt="img" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={a} alt="img" />
+                        </Carousel.Item>
+                    </Carousel>
+                    <div className="location">
+                        <MapContainer className="map" center={[b.address.latitude, b.address.longitude]} zoom={13} scrollWheelZoom={false}>
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <Marker position={[b.address.latitude, b.address.longitude]}>
+                                <Popup>
+                                    {b.businessName} <br />
+                                </Popup>
+                            </Marker>
+                        </MapContainer>
                     </div>
-                    <ul className="socialmedia">
-                        <li>
-                            <a href=''><FaWhatsapp /></a>
-                        </li>
-                        <li>
-                            <a href=''> <FaInstagram /></a>
-                        </li>
-                        <li>
-                            <a href=''><FaFacebook /></a>
-                        </li>
-                        <li>
-                            <a href=''><FaPhoneAlt /></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div className="cardbusiness">
-                <div className="business_name">
-                    <h1>Supermercado Iquegami</h1>
-                </div>
-                <div className="location">
-                    
-                </div>
-                <Carousel className="business_carousel" activeIndex={index} onSelect={handleSelect}>
-                    <Carousel.Item>
-                        <img className="d-block w-100" src={a} alt="img" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img className="d-block w-100" src={p} alt="img" />
-                    </Carousel.Item>
-                </Carousel>
-                <div className="cardtext">
-                    <div className="info">
-                        <p>
-                            R. Profa. Nair de Almeida, 988 - Centro <br /> Severínia - SP, 14735-000
-                        </p>
+                    <div className="cardtext">
+                        <div className="info">
+                            <p>
+                                {b.address.street}, {b.address.streetNumber} - {b.address.district} <br />
+                                {b.address.city} - {b.address.state}, {b.address.zipCode}
+                            </p>
+                        </div>
+                        <ul className="socialmedia">
+                            <li>
+                                <a href={b.socialMedias.whatsapp}><FaWhatsapp /></a>
+                            </li>
+                            <li>
+                                <a href={b.socialMedias.instagram}> <FaInstagram /></a>
+                            </li>
+                            <li>
+                                <a href={b.socialMedias.facebook}><FaFacebook /></a>
+                            </li>
+                            <li>
+                                <a href={b.socialMedias.phone}><FaPhoneAlt /></a>
+                            </li>
+                        </ul>
                     </div>
-                    <ul className="socialmedia">
+                    <div className="hours">
+                        <h5>Funcionamento:</h5>
                         <li>
-                            <a href=''><FaWhatsapp /></a>
+                            <a href=''><MdWatchLater /></a>
                         </li>
-                        <li>
-                            <a href=''> <FaInstagram /></a>
-                        </li>
-                        <li>
-                            <a href=''><FaFacebook /></a>
-                        </li>
-                        <li>
-                            <a href=''><FaPhoneAlt /></a>
-                        </li>
-                    </ul>
+                    </div>
                 </div>
-            </div> */}
-            {/* <Footer /> */}
+            )}
+            <Footer />
         </>
     );
 }

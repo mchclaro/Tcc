@@ -1,8 +1,10 @@
 import Menu from "./Menu";
 import "./home.css";
-import p from '../../assets/p.png'
-import s from '../../assets/s.png'
-import t from '../../assets/t.png'
+
+import severinia from '../../assets/severinia.jpg'
+import pracaMatriz from '../../assets/pracaMatriz.jpg'
+import camara from '../../assets/camara.jpg'
+
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Events from "./Events";
@@ -23,13 +25,13 @@ function Home() {
             <div className="carousel-wrapper">
                 <Carousel activeIndex={index} onSelect={handleSelect}>
                     <Carousel.Item>
-                        <img className="d-block w-100" src={t} alt="img" />
+                        <img className="d-block w-100" src={severinia} alt="img" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img className="d-block w-100" src={s} alt="img" />
+                        <img className="d-block w-100" src={pracaMatriz} alt="img" />
                     </Carousel.Item>
                     <Carousel.Item>
-                        <img className="d-block w-100" src={p} alt="img" />
+                        <img className="d-block w-100" src={camara} alt="img" />
                     </Carousel.Item>
                 </Carousel>
             </div>
