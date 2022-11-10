@@ -9,6 +9,10 @@ import { FaFacebook, FaInstagram, FaPhoneAlt, FaWhatsapp } from 'react-icons/fa'
 import { MdWatchLater } from 'react-icons/md';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import a from '../../../assets/a.png';
+import sho from '../../../assets/mc.png';
+import sho2 from '../../../assets/mc2.png';
+import sho3 from '../../../assets/mc3.png';
+import sho4 from '../../../assets/mc4.png';
 
 export default function Business() {
     const [index, setIndex] = useState(0);
@@ -44,10 +48,19 @@ export default function Business() {
                     <h3>Galeria de Fotos</h3>
                     <Carousel className="business_carousel" activeIndex={index} onSelect={handleSelect}>
                         <Carousel.Item>
-                            <img className="d-block w-100" src={b.mainImage} alt="img" />
+                            <img className="d-block w-100" src={sho2} alt="img" />
+                        </Carousel.Item>
+                        {/* <Carousel.Item>
+                            <img className="d-block w-100" src={a} alt="img" />
+                        </Carousel.Item> */}
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={sho} alt="img" />
                         </Carousel.Item>
                         <Carousel.Item>
-                            <img className="d-block w-100" src={a} alt="img" />
+                            <img className="d-block w-100" src={sho3} alt="img" />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img className="d-block w-100" src={sho4} alt="img" />
                         </Carousel.Item>
                     </Carousel>
                     <div className="location">

@@ -17,11 +17,11 @@
 .social_list svg {
   font-size: 1.5em;
   cursor: pointer;
-  color: #faf200;
+  color: #fff;
 }
 
 .social_list svg:hover {
-  color: #fff;
+  color: #faf200;
 }
 
 .copy_right span {
