@@ -21,7 +21,9 @@ function Home() {
     return (
         <>
             <Menu />
-            <Search />
+            <div>
+                <br />
+            </div>
             <div className="carousel-wrapper">
                 <Carousel activeIndex={index} onSelect={handleSelect}>
                     <Carousel.Item>

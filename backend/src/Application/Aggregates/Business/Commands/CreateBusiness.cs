@@ -162,17 +162,15 @@ namespace Application.Aggregates.Business.Commands
 
             public async Task<int> saveSocialMedia(Command request)
             {
-                var facebook = "https://www.facebook.com/";
                 var instagram = "https://www.instagram.com/";
-                var prefixo = "+55";
                 var wpp = "wa.me/+55";
 
                 var socialMedia = new SocialMedia
                 {
-                    Phone = prefixo + request.Phone,
+                    Phone = request.Phone,
                     Whatsapp = wpp + request.Whatsapp,
                     Instagram = instagram + request.Instagram,
-                    Facebook = facebook + request.Facebook
+                    Facebook = request.Facebook
                 };
 
                 return await _socialMediaRepository.Create(socialMedia);

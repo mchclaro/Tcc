@@ -1,7 +1,7 @@
 .cQGSFH {
   display: flex;
   width: 100%;
-  background: #C0C0C0;
+  background: #e9ecef;
   border-radius: 8px;
   height: 40px;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 10px 15px;
@@ -30,6 +30,6 @@
 }
 
 .carousel-wrapper {
-  margin: 20px 2px 0px 2px;
+  margin: 70px 0px 0px 0px;
 }
 

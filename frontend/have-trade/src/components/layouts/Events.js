@@ -7,6 +7,8 @@ import "./events.css";
 function Events() {
     return (
         <>
+        <div className="x">
+          <h2>Eventos</h2>
             <div className="cards_list">
                 <div className="card">
                     <div className="card_image">
@@ -43,6 +45,7 @@ function Events() {
                         <p>ATENÇÃO: Queimada é crime!</p>
                     </div>
                 </div>
+            </div>
             </div>
         </>
     );

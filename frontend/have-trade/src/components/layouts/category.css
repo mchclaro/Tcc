@@ -8,13 +8,13 @@
 .cardcategory {
   background: white;
   border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px #61a5c2, 0 6px 6px #a9d6e5;
   cursor: pointer;
   height: 220px;
   margin: 50px auto;
   padding: 0 20px;
   position: relative;
-  -webkit-tap-highlight-color: rgba(0,0,0,0.025);
+  -webkit-tap-highlight-color: #025586;
   text-align: center;
   transition: height 1000ms;
   width: 260px;
@@ -70,4 +70,14 @@
 
 h1 {
   color: #025586;
+}
+
+.y h2 {
+  margin-top: 15px;
+  margin-bottom: -10px;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #025586;
+  text-align: center;
+  position: relative;
 }

@@ -51,7 +51,7 @@ namespace Infrastructure.FileService
             {
                 BucketName = BucketName,
                 Key = fileName,
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMonths(6),
             };
 
             return _awsS3Client.GetPreSignedURL(request);

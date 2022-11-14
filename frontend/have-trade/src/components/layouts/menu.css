@@ -131,7 +131,7 @@ li {
 .sub__menus {
   position: absolute;
   display: none;
-  background: rgb(52, 51, 51);
+  background: #025586;
   border: 1px solid lavender;
   width: 227px;
   left: -17px;
@@ -165,7 +165,7 @@ li {
 }
 
 .menu-item .sub__menus li:hover a {
-  color: #025586 !important;
+  color: #faf200 !important;
 }
 
 .header__middle__logo img {

@@ -63,6 +63,8 @@ const Menu = () => {
                                         <li> <Link to="/" onClick={toggleClass} className='is-active'>Fármacias</Link></li>
                                         <li><Link to="/" onClick={toggleClass} className='is-active'>Mercados</Link></li>
                                         <li><Link to="/" onClick={toggleClass} className='is-active'>Restaurantes</Link></li>
+                                        <li><Link to="/" onClick={toggleClass} className='is-active'>Barbearias</Link></li>
+                                        <li><Link to="/" onClick={toggleClass} className='is-active'>Bancos</Link></li>
                                     </ul>
                                 </li>
                             </ul>
