@@ -10,7 +10,7 @@ import { MdWatchLater } from 'react-icons/md';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import imagem from '../../../assets/imagem.jpg';
 
-export default function Business() {
+export default function Business(props) {
     const [index, setIndex] = useState(0);
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -18,9 +18,10 @@ export default function Business() {
 
     const baseUrl = "https://localhost:5001/api/Business/";
     const [data, setData] = useState([]);
+    const category = 1;
 
     const getBusiness = async () => {
-        await axios.get(`${baseUrl}read/all`).then(response => {
+        await axios.get(`${baseUrl}read/all/${category}`).then(response => {
             setData(response.data.data);
         }).catch(error => {
             console.log(error);

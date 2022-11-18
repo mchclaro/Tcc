@@ -12,6 +12,7 @@ namespace Domain.Interfaces.Repositories
         Task<int> Create(Business business);
         Task<Business> Read(int id);
         Task<IList<Business>> ReadAll();
+        Task<IList<Business>> FilterCategory(int category);
         Task Update(Business business);
         Task<bool> Exists(int id);
         Task Delete(int id);

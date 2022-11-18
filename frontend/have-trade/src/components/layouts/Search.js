@@ -1,7 +1,6 @@
 import { FaSearch } from 'react-icons/fa';
 import './search.css'
 
-
 export default function Search() {
     return (
         <>

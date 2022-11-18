@@ -105,6 +105,15 @@ namespace Data.Repositories
                .ToListAsync();
         }
 
+        public async Task<IList<Business>> FilterCategory(int category)
+        {
+            return await _context.Business
+               .Include(a => a.Address)
+               .Include(x => x.SocialMedias)
+               .Where(x => x.IsActive == true && (int)x.Category == category)
+               .ToListAsync();
+        }
+
         public async Task Update(Business business)
         {
             var res = await _context.Business.FindAsync(business.Id);

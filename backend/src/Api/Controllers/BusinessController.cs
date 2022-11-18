@@ -41,6 +41,15 @@ namespace Api.Controllers
         }
 
         /// <summary>
+        /// Busca todos comércios de uma determinada categorias
+        /// </summary>
+        [HttpGet("read/all/{category}")]
+        public async Task<IActionResult> FilterCategory(int category)
+        {
+            return GetIActionResult(await Mediator.Send(new ListBusinessCategory.Query { Category = category }));
+        }
+
+        /// <summary>
         /// Busca um comércio por id
         /// </summary>
         [HttpGet("read/{id}")]

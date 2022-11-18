@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiAlignRight, FiXCircle, FiChevronDown } from "react-icons/fi";
 import logo from '../../assets/logo.jpg'
 import './menu.css'
-
 
 const Menu = () => {
 
@@ -60,11 +59,18 @@ const Menu = () => {
                                 <li className="menu-item"><Link to="/" onClick={toggleClass} className='is-active'>Produtos</Link></li>
                                 <li onClick={toggleSubmenu} className="menu-item sub__menus__arrows" > <Link to="/"> Categorias <FiChevronDown /></Link>
                                     <ul className={boxClassSubMenu.join(' ')} >
-                                        <li> <Link to="/" onClick={toggleClass} className='is-active'>Fármacias</Link></li>
-                                        <li><Link to="/" onClick={toggleClass} className='is-active'>Mercados</Link></li>
-                                        <li><Link to="/" onClick={toggleClass} className='is-active'>Restaurantes</Link></li>
-                                        <li><Link to="/" onClick={toggleClass} className='is-active'>Barbearias</Link></li>
-                                        <li><Link to="/" onClick={toggleClass} className='is-active'>Bancos</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Fármacias</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Mercados</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Barbearias</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Mercearias</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Restaurantes</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Lanchonetes</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Sorveterias</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Posto de Combustível</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Padarias</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Bancos</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Eletrodomésticos</Link></li>
+                                        <li><Link to="/business/category" onClick={toggleClass} className='is-active'>Outros</Link></li>
                                     </ul>
                                 </li>
                             </ul>
